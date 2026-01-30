@@ -1,0 +1,291 @@
+/* == OVERALL DEFINITIONS == */
+
+html
+{
+	font-size: calc(12px + 0.390625vw);
+}
+
+body
+{
+	background-color: #f3f3f3;
+	font-family : "Century Gothic", Helvetica;
+	margin: 0;
+}
+
+main
+{
+	padding: 15px;
+}
+
+.text-center{ text-align: center; }
+.text-justify{ text-align: justify; }
+h1
+{
+	font-size: 1.8rem;
+}
+h2
+{
+	font-size: 1.5rem;
+}
+
+
+/* == HEADER == */
+header{ background-color: white; }
+
+/* Navbar */
+header .navbar
+{
+	background-color: black;
+	color: white;
+	padding: 10px 15px;
+}
+header .navbar span.active{ font-weight: 600; color: #ec7035; }
+header .navbar a
+{
+	color: white;
+	text-decoration: none;
+}
+header .navbar a:hover
+{
+	text-decoration: underline;
+	font-weight: 600;
+}
+
+header .navbar .navitem:not(:last-child)::after
+{
+	content: ' | ';
+	color: white;
+	font-weight: 100;
+}
+
+
+/* == FOOTER == */
+footer
+{
+	background-color: black;
+    color: white;
+    padding: 30px 0;
+    /*margin-top: 50px;*/
+    font-size: 0.8em;
+	text-align: center;
+	font-style: italic;
+}
+
+/* == CONTENT == */
+.wrapper
+{
+	max-width: 1090px;
+	margin: 0 auto;
+	background-color: white;
+	border: 1px solid grey;
+	padding: 15px;
+}
+
+
+
+/* Article table */
+table.t-articles
+{
+	border-collapse: collapse; /* Remove cell padding */
+}
+table.t-articles thead th
+{
+	background-color: black;
+	color: white;
+	padding: 15px 8px;
+}
+table.t-articles tbody tr:nth-child(odd)
+{
+	background-color: white;
+}
+table.t-articles tbody td
+{
+	padding: 10px 8px;
+}
+
+/* Side-by-side elements using Flex method*/
+.flex-container
+{
+	display: flex;
+}
+.flex-child
+{
+	flex: 1;
+}
+.flex-child:not(:last-child)
+{
+	padding-right: 20px;	
+}
+
+/* Forms */
+label
+{
+	font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: #ec7035;
+}
+input, select, textarea
+{
+	font-family : "Century Gothic", Helvetica;
+	border: 0;
+    padding: 8px 5px;
+    margin-top: 5px;
+    border-radius: 8px;
+}
+textarea
+{
+	resize: none;
+}
+button
+{
+	font-family : "Century Gothic", Helvetica;
+	text-transform : uppercase;
+	border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 300ms ease 0s, color 300ms ease 0s;
+    cursor: pointer;
+    -webkit-box-align: center;
+    align-items: center;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 8px 15px;
+}
+button[type="reset"]
+{
+	background-color: white;
+	color: black;
+	border: 1px solid currentcolor;
+}
+button[type="reset"]:hover
+{
+	background-color: rgb(244, 246, 247);
+}
+button[type="submit"]
+{
+	background-color: #ec7035;
+	color: white;
+	font-weight: 600;
+	border: 1px solid transparent;
+}
+button[type="submit"]:hover
+{
+	background-color: rgb(192, 86, 42);
+}
+input[type="file"] {
+    display: none;
+}
+.file-upload
+{
+    display: inline-block;
+	transition: background-color 300ms ease 0s, color 300ms ease 0s;
+	padding: 8px 15px;
+    margin-top: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+	background-color: #ec7035;
+	color: white;
+	font-weight: 600;
+	font-size: 0.8em;
+	border: 1px solid transparent;
+	
+	
+}
+.file-upload:hover
+{
+	background-color: rgb(192, 86, 42);
+}
+
+input[type="radio"]
+{
+	/* This property is used for changing color of radio buttons but is not supported by older browsers */
+	accent-color: rgb(192, 86, 42);
+}
+
+
+/* == MEDIA QUERIES == */
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px)
+{
+	/* Side-by-side category list */
+	ul.categories
+	{
+		list-style: none;
+	}
+	ul.categories li
+	{
+		display: inline;
+	}
+	ul.categories li:not(:last-child)::after
+	{
+		content: ' - ';	
+	}
+	
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px)
+{
+	
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px)
+{
+	.flex-container{ display: block; }
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape)
+{
+  .flex-container{ display: block; }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px)
+{
+	.flex-container{ display: block; }
+	header .navbar .navitem
+	{
+		padding: 5px 0;
+		display: block;
+	}
+	header .navbar .navitem:not(:last-child)::after
+	{
+		content: '';
+	}
+	
+	header img{ width: 30%;}
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px)
+{
+  .flex-container{ display: block; }
+}
