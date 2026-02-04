@@ -1,140 +1,165 @@
-# Projet Web – Comment vous serez évalués
+# Projet Web – Format et déroulement de la soutenance
 
 ---
 
-Ce document a pour objectif de vous expliquer **clairement et simplement** comment se déroulera l’évaluation du projet web.
+Ce document a pour objectif de vous expliquer **précisément** comment se déroulera la soutenance du projet web, ce qui est attendu de vous, et sur quels éléments vous serez évalués.
 
-L’évaluation repose sur **plusieurs dimensions complémentaires** :
-
-* le projet en tant que produit fini,
-* la qualité technique du travail réalisé,
-* le respect du cahier des charges,
-* votre **implication individuelle**,
-* votre capacité à **présenter et défendre** votre travail lors de la soutenance.
+La soutenance fait partie intégrante de l’évaluation finale du projet.
 
 ---
 
-## 1. Une évaluation à la fois collective et individuelle
+## 1. Objectifs de la soutenance
 
-Le projet est réalisé en **groupe**, mais la note finale **n’est pas automatiquement la même pour tous**.
+La soutenance vise à évaluer :
 
-Deux niveaux d’évaluation existent :
+* le **résultat final du projet**,
+* votre **compréhension globale** de ce que vous avez développé,
+* votre capacité à **présenter, expliquer et justifier** vos choix,
+* votre **implication individuelle** au sein du groupe.
 
-* une évaluation **du projet** (fonctionnalités, qualité technique, conformité),
-* une évaluation **de votre implication personnelle**.
-
-Un projet techniquement réussi ne garantit pas une excellente note individuelle si l’implication personnelle n’est pas démontrée.
-
----
-
-## 2. Implication individuelle
-
-Votre implication est évaluée **individuellement**, notamment à travers :
-
-* votre participation active aux séances de suivi,
-* votre compréhension globale du projet,
-* votre capacité à expliquer ce que vous avez fait,
-* votre investissement réel dans le travail de groupe,
-* votre autonomie et votre sérieux.
-
-La soutenance joue un rôle clé : **chacun devra être capable de parler du projet**, de justifier des choix et de répondre aux questions.
+Il ne s’agit pas uniquement de montrer que “ça fonctionne”, mais de démontrer que vous **maîtrisez** votre projet.
 
 ---
 
-## 3. Fonctionnalités du projet
+## 2. Format général
 
-Le jury évaluera le **fonctionnement réel de l’application**, en s’appuyant sur les spécifications fonctionnelles (SFx).
+La soutenance se déroule **par groupe**.
 
-Seront notamment observés :
+Durée indicative totale : **environ 1 heure par groupe**.
 
-* la présence des fonctionnalités attendues,
-* leur cohérence avec le cahier des charges,
-* leur niveau de complétude (fonctionnalité réellement utilisable),
-* la gestion des rôles et des permissions.
+Cette durée se décompose de la manière suivante (à titre indicatif) :
 
-Les fonctionnalités doivent être **opérationnelles**, pas seulement présentes dans le code.
+* **5 minutes de présentation** (maximum),
+* **20 à 25 minutes de démonstration technique**,
+* **25 à 30 minutes de questions / réponses** avec le jury.
 
----
-
-## 4. Qualité du Backend
-
-La partie backend est évaluée sur des critères techniques précis, en lien avec les spécifications techniques (STx), notamment :
-
-* respect de l’architecture MVC,
-* usage de la programmation orientée objet en PHP,
-* organisation et lisibilité du code,
-* routage propre et cohérent,
-* exploitation correcte de la base de données (relations, clés étrangères),
-* sécurité (validation des données, protections de base).
-
-Un code fonctionnel mais mal structuré ou peu sécurisé sera pénalisé.
+Les durées peuvent légèrement varier selon les échanges, mais ce découpage constitue la référence.
 
 ---
 
-## 5. Qualité du Frontend
+## 3. Déroulement détaillé de la soutenance
 
-Le frontend est évalué sur :
+### 1️⃣ Introduction et présentation du projet (≈ 5 minutes)
 
-* la structure HTML (balises sémantiques, validité),
-* la qualité et la cohérence du CSS,
-* le respect du responsive design (mobile / desktop),
-* la navigation et l’ergonomie globale,
-* la cohérence avec les maquettes.
+Présentation orale courte et structurée, comprenant :
 
-L’objectif n’est pas de produire un site "graphiste", mais un site **clair, lisible et utilisable**.
+* le contexte du projet,
+* les objectifs de l’application,
+* les profils utilisateurs,
+* les grandes fonctionnalités développées.
 
----
-
-## 6. Conformité et livrables
-
-Seront également évalués :
-
-* le respect global du cahier des charges,
-* la conformité aux contraintes techniques (interdictions, stack imposée),
-* la présence des éléments obligatoires (mentions légales, SEO de base, sécurité),
-* la qualité du dépôt Git (organisation, régularité des commits).
-
-Un projet non conforme aux règles annoncées sera pénalisé, même s’il fonctionne.
+La présentation doit être **claire, synthétique et maîtrisée**.
 
 ---
 
-## 7. La soutenance
+### 2️⃣ Démonstration technique (≈ 20 à 25 minutes)
 
-La soutenance est une **partie essentielle de l’évaluation**.
+Démonstration du projet en conditions réelles :
 
-Elle permet d’évaluer :
+* navigation dans l’application,
+* présentation des fonctionnalités principales,
+* démonstration des rôles et permissions,
+* utilisation de données cohérentes.
+
+La démonstration doit être structurée et préparée à l’avance.
+
+Elle peut être **orientée par le jury**, qui peut demander à voir :
+
+* une fonctionnalité précise,
+* un parcours utilisateur particulier,
+* un comportement spécifique de l’application.
+
+---
+
+### 3️⃣ Questions / réponses (≈ 25 à 30 minutes)
+
+Le jury posera des questions afin d’évaluer :
 
 * votre compréhension du projet,
-* votre capacité à présenter une solution technique,
-* votre implication individuelle,
-* votre maîtrise du travail réalisé.
+* vos choix techniques et fonctionnels,
+* votre capacité à prendre du recul sur votre travail.
 
-La soutenance comprend :
+Les questions peuvent porter sur :
 
-* une présentation courte (≈ 5 minutes),
-* une démonstration technique,
-* des questions du jury.
+* l’architecture (MVC, organisation du code),
+* la base de données (MCD, relations, clés étrangères),
+* la sécurité (authentification, validation des données),
+* le frontend (responsive, structure HTML/CSS),
+* la gestion de projet et le travail en équipe.
 
 ---
 
-## 8. Ce qu’on attend clairement de vous
+## 4. Répartition de la parole
 
-Pour obtenir une bonne note, vous devez :
+Tous les membres du groupe doivent :
 
-* livrer un projet fonctionnel et conforme,
-* respecter les contraintes techniques,
-* montrer une vraie implication individuelle,
-* être capable d’expliquer et de défendre votre travail.
+* participer à la présentation,
+* être capables de répondre aux questions,
+* connaître l’ensemble du projet, même s’ils n’ont pas tout développé.
 
-Ce projet n’évalue pas uniquement votre capacité à coder, mais aussi votre **rigueur, votre organisation et votre professionnalisme**.
+Un étudiant incapable d’expliquer le projet ou son travail personnel sera pénalisé.
+
+---
+
+## 5. Évaluation individuelle et collective
+
+### Évaluation du groupe
+
+Le jury évaluera collectivement :
+
+* la qualité globale du projet,
+* la conformité au cahier des charges,
+* la complétude des fonctionnalités,
+* la qualité technique de l’ensemble.
+
+### Évaluation individuelle
+
+Chaque étudiant est évalué individuellement sur :
+
+* son implication réelle dans le projet,
+* sa compréhension globale,
+* sa capacité à expliquer et justifier son travail,
+* sa participation orale pendant la soutenance.
+
+La note finale peut donc être **différente pour chaque membre du groupe**.
+
+---
+
+## 6. Ce qui est attendu le jour de la soutenance
+
+Chaque groupe doit arriver avec :
+
+* une application fonctionnelle et stable,
+* des données de test prêtes à l’emploi,
+* un scénario de démonstration préparé,
+* un discours clair et réparti entre les membres.
+
+Les problèmes techniques non anticipés (site inaccessible, données manquantes, bugs bloquants) seront pénalisés.
+
+---
+
+## 7. Ce qui est fortement déconseillé
+
+* Lire un texte ou des diapositives.
+* Improviser totalement la démonstration.
+* Laisser une seule personne parler.
+* Dire “c’est lui qui a fait cette partie” sans être capable de l’expliquer.
+
+---
+
+## 8. Conseils pour bien réussir la soutenance
+
+* Entraînez-vous à respecter le temps imparti.
+* Préparez un ordre de démonstration logique.
+* Anticipez les questions du jury.
+* Soyez clairs, honnêtes et professionnels.
 
 ---
 
 ## En résumé
 
-* Le projet compte, mais **votre implication personnelle est déterminante**.
-* Le respect du cahier des charges est obligatoire.
-* La qualité technique et la clarté priment sur la quantité.
-* La soutenance peut faire la différence.
+* La soutenance est un **moment clé de l’évaluation**.
+* Elle évalue autant le **projet** que les **personnes**.
+* La préparation fait souvent la différence.
 
-Ce document doit vous servir de **référence tout au long du projet**.
+Ce document doit vous servir de **guide de référence** pour préparer votre soutenance.
