@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+  upload.html
+  -------------
+  Page simple contenant un formulaire pour envoyer un fichier PDF au serveur.
+  À retenir :
+  - L'attribut enctype="multipart/form-data" est OBLIGATOIRE pour l'upload.
+  - Le champ <input type="file"> permet de sélectionner un fichier sur l'ordinateur.
+  - L'attribut accept restreint les types de fichiers proposés (ici PDF),
+    mais la vérification côté serveur reste indispensable (faite dans upload.php).
+-->
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Téléverser un PDF</title>
+    <meta name="description" content="Formulaire accessible pour téléverser un fichier PDF.">
+    <!-- On charge la feuille de style spécifique au formulaire -->
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Téléverser un fichier PDF</h1>
+            <!-- Petit texte d'aide sous le titre -->
+            <p class="muted">Seuls les fichiers au format PDF sont acceptés.</p>
+        </header>
+
+        <!-- La carte contient le formulaire -->
+        <section class="card" aria-labelledby="titre-form">
+            <!-- Titre accessible pour les lecteurs d'écran -->
+            <h2 id="titre-form" class="sr-only">Formulaire d’upload</h2>
+
+            <!--
+              action  → le script serveur qui va traiter l'upload (upload.php)
+              method  → POST pour envoyer des données au serveur
+              enctype → nécessaire pour transmettre des fichiers
+            -->
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <!-- Le label est lié au champ par l'attribut for/id -->
+                    <label for="file">Sélectionnez un fichier PDF</label>
+                    <!--
+                      accept      → suggère des fichiers .pdf au sélecteur
+                      required    → le formulaire ne peut pas être soumis sans fichier
+                      aria-describedby → associe un texte d'aide au champ pour l'accessibilité
+                    -->
+                    <input type="file" name="file" id="file" accept=".pdf,application/pdf" required aria-describedby="file-help">
+                    <p id="file-help" class="helper muted">Astuce : vérifiez que votre document est bien enregistré en PDF avant l’envoi.</p>
+                </div>
+                <!-- Bouton d'envoi du formulaire -->
+                <button type="submit" class="btn btn-primary">Téléverser</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
