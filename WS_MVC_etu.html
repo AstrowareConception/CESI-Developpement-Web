@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WS_MVC_etu</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#ws--composer--mvc--php">WS : Composer / MVC / PHP</a>
+<ul>
+<li><a href="#objectifs-du-ws">Objectifs du WS</a></li>
+<li><a href="#note-à-lintention-des-tuteurs">Note à l’intention des tuteurs</a></li>
+</ul>
+</li>
+<li><a href="#installation-et-configuration">1. Installation et configuration</a></li>
+<li><a href="#définition-dune-architecture-mvc">2. Définition d’une architecture MVC</a>
+<ul>
+<li><a href="#étude-de-la-structure-du-projet-my-todoo">2.1 Étude de la structure du projet My Todoo</a></li>
+<li><a href="#le-model">2.2 Le Model</a></li>
+<li><a href="#la-vue">2.3 La vue</a></li>
+<li><a href="#le-contrôleur">2.4 Le contrôleur</a></li>
+<li><a href="#le-routeur">2.5 Le routeur</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="ws--composer--mvc--php">WS : Composer / MVC / PHP</h1>
+<h2 id="objectifs-du-ws">Objectifs du WS</h2>
+<p>Ce workshop vous donne certaines clés pour architecturer votre projet, gérer les dépendances tierces et garantir (dans une certaine mesure) la qualité du code. Plus concrètement, il vise à :</p>
+<ol>
+<li>Comprendre l’architecture MVC (Modèle-Vue-Contrôleur).</li>
+<li>Utiliser Composer pour la gestion des dépendances.</li>
+<li>Utiliser le moteur de template Twig.</li>
+</ol>
+<p>Vous allez structurer votre première application MVC en développant <strong>MyTodo</strong>, un outil simple et efficace pour gérer vos tâches quotidiennes. MyTodo se compose de deux pages principales : une <strong>page d’accueil</strong>  <em>(home)</em> pour créer et lister vos tâches en cours, et une <strong>page d’historique</strong>  <em>(history)</em> qui archive les tâches terminées et permet de les rétablir (<em>‘undo’</em>) en un clic. Ce projet vous permettra de mettre en pratique les concepts clés du MVC (Modèle-Vue-Contrôleur), d’utiliser un moteur de template comme Twig pour dynamiser vos vues, et de gérer les interactions utilisateur avec une base de données légère.</p>
+<p><img src="https://raw.githubusercontent.com/quentinl-c/MVC_material/refs/heads/main/img/mytodo_demo.gif" alt="Démonstration de Mytodo"></p>
+<p><strong>⬇️Le squelette est à télécharger sur Moodle</strong></p>
+<h2 id="note-à-lintention-des-tuteurs">Note à l’intention des tuteurs</h2>
+<p>Ce WS est assez dense, aussi n’hésitez pas à demander aux étudiants de prioriser les questions intitulées “consignes” par rapport aux  “🚀 Consignes complémentaires”, qui pourront/devront être faites dans un second temps.</p>
+<h1 id="installation-et-configuration">1. Installation et configuration</h1>
+<p>⚠️ Pour avoir un environnement fonctionnel dans le cadre du projet My Todoo, vous devez réaliser <strong>au préalable</strong> les étapes suivantes :</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Installer Composer (voir les ressources du prosit)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Créer une entrée DNS locale <code>mytodoo.local</code> -&gt; <code>121.0.0.1</code> (<a href="https://4it.com.au/kb/article/how-to-add-a-dns-entry-manually-to-a-windows-computer/">Windows</a>)(<a href="https://www.tecmint.com/setup-local-dns-using-etc-hosts-file-in-linux/">Linux</a>)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Créer un répertoire qui contiendra le code du microprojet MyTodoo (par exemple :<code>/var/www/my_todoo</code>)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Créer un <em>VirtualHost</em> qui redirige <code>mytodoo.local</code> vers le répertoire du projet (voir le prosit sur Apache)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Copier le contenu du projet my_todoo dans le répertoire que vous venez de créer (par exemple :<code>/var/www/my_todoo</code>)</li>
+</ul>
+<h1 id="définition-dune-architecture-mvc">2. Définition d’une architecture MVC</h1>
+<h2 id="étude-de-la-structure-du-projet-my-todoo">2.1 Étude de la structure du projet My Todoo</h2>
+<p><strong>Consignes :</strong> Parcourez les fichiers qui composent le projet <code>my_todoo</code> et répondez aux questions suivantes :</p>
+<h3 id="le-gestionnaire-de-dépendances-composer">Le gestionnaire de dépendances Composer</h3>
+<p>❓ À quoi sert le fichier <code>composer.json</code> ?<br>
+❓ Avec quelle commande a-t-il été créé ?<br>
+❓ Comment peut-on installer des dépendances renseignées dans le fichier <code>composer.json</code>.<br>
+❓ Quelle information contient-il ?<br>
+❓ Quelle est la différence entre les dépendances <code>require</code> et <code>require-dev</code> ?<br>
+❓ Qu’est-ce qu’un autoloader ? Que signifie la directive suivante ?</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token string">"autoload"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+       <span class="token string">"psr-4"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+           <span class="token string">"App\\"</span><span class="token punctuation">:</span> <span class="token string">"src/"</span>
+       <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+</code></pre>
+<p>❓ Expliquez la relation entre les namespaces et l’arborescence du répertoire <code>src</code>.</p>
+<p>Installez les dépendances renseignées dans composer.json.</p>
+<blockquote>
+<p><code>composer install</code></p>
+</blockquote>
+<h3 id="larchitecture-mvc">L’architecture MVC</h3>
+<p>❓Quel est le rôle du contrôleur ? À quoi correspondent les attributs <code>$model</code> et <code>$templateEngine</code> ?<br>
+❓Quel est le rôle du modèle ? À quoi correspond l’attribut <code>$connection</code> ?<br>
+❓Quel est le rôle de la classe FileDataBase ?<br>
+❓Quel est le rôle du fichier <code>index.php</code> ?<br>
+❓ Sachant cela, et en vous appuyant sur vos recherches, proposez un schéma  l’architecture MVC décrivant les principaux composants et leurs interactions.</p>
+<h2 id="le-model">2.2 Le Model</h2>
+<p>Notre application étant assez élémentaire, nous avons choisi de définir un seul modèle : <code>TaskModel</code>. Il va nous permettre d’assurer le lien avec notre base de données “fictive” <code>FileDataBase</code> et opérera des traitements sur les données, comme filtrer les tâches à faire et les tâches à réaliser.</p>
+<p><strong>Consignes :</strong> En vous appuyant sur les commentaires laissés dans le code et préfixés par <code>TODO:</code>, complétez l’implémentation de la classe <code>TaskModel</code>.</p>
+<h2 id="la-vue">2.3 La vue</h2>
+<p>Pour générer la vue, il est tout à fait possible d’utiliser du PHP comme nous l’avons fait jusque-là. Seulement, le mélange entre le code HTML et PHP rend très souvent le code confus. Par ailleurs, beaucoup d’aspects visuels se répètent d’une page web à l’autre (comme la top bar, le footer, les menus latéraux…). Les moteurs de template répondent à ces problématiques et à bien d’autres en proposant une séparation claire entre la logique de présentation et la logique métier. Ils offrent une syntaxe simplifiée et plus lisible pour intégrer des variables et des structures de contrôle dans le HTML, ce qui rend les fichiers de vue plus compréhensibles. De plus, les moteurs de template facilitent la réutilisation des blocs de code grâce à des fonctionnalités comme l’héritage de templates, les inclusions, et les fonctions/filtres/macros, réduisant ainsi la duplication de code et améliorant la modularité de l’application. Ils intègrent également des mécanismes de sécurité pour échapper automatiquement les variables, prévenant ainsi les attaques par injection XSS. Enfin, ils permettent une meilleure collaboration entre les designers et les développeurs, chacun pouvant se concentrer sur son domaine d’expertise tout en utilisant un langage de template commun.</p>
+<p><strong>Consigne :</strong> Vous devez créer un template Twig pour notre application de gestion de TODO List. Le template doit afficher une liste de tâches à faire, permettre l’ajout de nouvelles tâches et marquer les tâches comme terminées. Le template devra être enregistré dans le répertoire <code>template</code> avec le nom <code>todo.twig.html</code>.</p>
+<p><em>Les données :</em> Les données envoyées au template sont sous la forme d’un tableau de tâches, où chaque tâche est représentée par un dictionnaire contenant un identifiant (id) et le contenu de la tâche (task). Par exemple :</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">"id"</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"task"</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">"Message 1"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token string">"id"</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"task"</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">"Message 2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p><em>Le code HTML</em> de base est fourni ci-dessous. Vous devez intégrer les données dynamiques à l’aide de Twig.</p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Home<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://unpkg.com/mvp.css<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>✅ My Todoo <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span>
+	                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Home<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+	                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/?uri=history<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>History<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+	                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/?uri=about<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>About<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">&gt;</span></span>
+	        
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/?uri=add_task<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> 
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">&gt;</span></span>📝 Add a new task<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>   
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>task<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Add a new task<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Add<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+	        
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">&gt;</span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">&gt;</span></span>My todo list<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token comment">&lt;!--Loop over tasks--&gt;</span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/?uri=check_task<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">&gt;</span></span>task1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Done<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>    
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/?uri=check_task<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">&gt;</span></span>Things to do ...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Done<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+	        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>    
+	        <span class="token comment">&lt;!--...--&gt;</span>    
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p><em>Indications sur la logique de présentation :</em></p>
+<ol>
+<li>Boucle sur les tâches : Utilisez une boucle Twig pour parcourir les tâches et afficher chaque tâche dans un formulaire.</li>
+<li>Affichage des tâches : Pour chaque tâche, affichez le contenu de la tâche dans un label et l’identifiant de la tâche dans un champ caché (input de type hidden).</li>
+<li>Formulaire de marquage : Chaque tâche doit avoir un bouton “Done” qui soumet un formulaire pour marquer la tâche comme terminée.</li>
+</ol>
+<p><strong>🚀 Consigne complémentaire :</strong>  Cette consigne est à réaliser, si le workshop est intégralement terminé. Utilisez la directive <code>extends</code> de Twig pour créer une hiérarchie de templates sur plusieurs niveaux, vous permettant de factoriser du code HTML présent sur plusieurs vues.</p>
+<h2 id="le-contrôleur">2.4 Le contrôleur</h2>
+<p>Pour rappel, le contrôleur agit comme un intermédiaire entre le modèle (qui gère les données et la logique métier) et la vue (qui affiche les données à l’utilisateur). Dans le contexte de l’application MyToDoo, le contrôleur TaskController est responsable de gérer les interactions de l’utilisateur, telles que l’ajout de nouvelles tâches, le marquage des tâches comme terminées, et l’affichage des différentes pages de l’application. Il interagit avec le modèle TaskModel pour récupérer et manipuler les données des tâches, et utilise un moteur de template pour rendre les vues HTML.</p>
+<p><strong>Consigne :</strong> Complétez l’implémentation de la classe <code>TaskController</code>. Complétez en priorité les méthodes suivantes : <code>welcomePage</code>, <code>addTask</code>, <code>checkTask</code>.</p>
+<p><strong>🚀 Consigne complémentaire :</strong> Les méthodes : <code>historyPage</code>, <code>uncheckTask</code>, <code>aboutPage</code> doivent être réalisés dans un second temps, quand vous avez terminé l’intégralité du workshop. Les méthodes <code>historyPage</code> et <code>aboutPage</code> devront faire l’objet de la création des templates correspondants.</p>
+<p><em>Indications :</em></p>
+<ul>
+<li>
+<p>Méthode <code>welcomePage</code> : Récupérez la liste des tâches à partir du modèle en utilisant une méthode appropriée (par exemple, <code>getAllTasks</code>). Passez cette liste de tâches au moteur de template pour rendre la vue todo.twig.html.</p>
+</li>
+<li>
+<p>Méthode <code>addTask</code> : Vérifiez si le paramètre task est présent dans la requête POST. Si le paramètre n’est pas présent, redirigez l’utilisateur vers la page d’accueil. Récupérez la valeur du paramètre task. Appelez la méthode <code>addTask</code> du modèle avec la tâche comme paramètre. Redirigez l’utilisateur vers la page d’accueil.</p>
+</li>
+<li>
+<p>Méthode <code>checkTask</code> : Vérifiez si le paramètre id est présent dans la requête POST. Si le paramètre n’est pas présent, redirigez l’utilisateur vers la page d’accueil. Récupérez la valeur du paramètre id. Appelez la méthode <code>checkTask</code> du modèle avec l’identifiant comme paramètre. Redirigez l’utilisateur vers la page d’accueil.</p>
+</li>
+<li>
+<p>Méthode <code>historyPage</code> : Récupérez la liste des tâches à partir du modèle. Rendez la vue <code>history.twig.html</code> avec la liste des tâches.</p>
+</li>
+<li>
+<p>Méthode <code>uncheckTask</code> : Suivez les mêmes étapes que pour la méthode checkTask, mais appelez la méthode <code>uncheckTask</code> du modèle à la place.</p>
+</li>
+<li>
+<p>Méthode <code>aboutPage</code> : Rendez la vue <code>about.twig.html</code>.</p>
+</li>
+</ul>
+<h2 id="le-routeur">2.5 Le routeur</h2>
+<p>Le routeur agit comme un point d’entrée principal de l’application, analysant les URL des requêtes entrantes et dirigeant ces requêtes vers les méthodes appropriées des contrôleurs. En d’autres termes, le routeur détermine quelle action doit être exécutée en fonction de l’URL demandée par l’utilisateur. Dans le contexte de notre application, le routeur est responsable de diriger les requêtes vers les méthodes spécifiques du contrôleur <code>TaskController</code>, telles que l’affichage de la page d’accueil, l’ajout de nouvelles tâches, ou l’affichage de l’historique des tâches.</p>
+<p><strong>Consigne :</strong> Complétez le code du routeur en appelant les méthodes appropriées du contrôleur <code>TaskController</code> en fonction de l’uri de la requête. Concentrez-vous en priorité sur les Uri : <code>/</code>, <code>addTask</code>. Une fois ces ajouts terminés, testez votre application.</p>
+<p><strong>🚀 Consigne complémentatire :</strong> Dans un second temps, si vous avez terminé le workshop, complétez les autres uri. Assurez-vous de gérer les cas où l’uri n’est pas reconnu en retournant une erreur <code>404</code>.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>
