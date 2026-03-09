@@ -1,0 +1,19 @@
+{
+    "name": "cesi/bookshop",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cesi\\Bookshop\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Margaret Hamilton",
+            "email": "mhamilton@cesi.fr"
+        }
+    ],
+    "require": {}
+}
