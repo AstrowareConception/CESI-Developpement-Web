@@ -26,9 +26,10 @@ class TaskModelTest extends TestCase {
     public function testAddTask() {
         
         $connection = $this->createMock(FileDatabase::class);
-        $connection->method('insertRecord')->willReturn(true);
-
-        // TODO : We expect the insertRecord method to be called once with the following data array: ['task' => 'test task', 'status' => 'todo']
+        $connection->expects($this->once())
+            ->method('insertRecord')
+            ->with(['task' => 'test task', 'status' => 'todo'])
+            ->willReturn(true);
 
         $model = new TaskModel($connection);
         $result = $model->addTask('test task');
@@ -37,8 +38,18 @@ class TaskModelTest extends TestCase {
     }
 
     public function testGetDoneTasks() {
-        /* Add your code here */
-        $this->assertTrue(true);
+        $connection = $this->createStub(FileDatabase::class);
+        $connection->method('getAllRecords')->willReturn([
+            ['task' => 'test task 1', 'status' => 'todo'],
+            ['task' => 'test task 2', 'status' => 'todo'],
+            ['task' => 'test task 3', 'status' => 'done'],
+        ]);
+
+        $model = new TaskModel($connection);
+        $tasks = $model->getDoneTasks();
+
+        $this->assertCount(1, $tasks);
+        $this->assertContains(['task' => 'test task 3', 'status' => 'done'], $tasks);
     }
 
 }
