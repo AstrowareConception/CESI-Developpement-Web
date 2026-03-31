@@ -25,13 +25,13 @@ Il ne s’agit pas uniquement de montrer que “ça fonctionne”, mais de démo
 
 La soutenance se déroule **par groupe**.
 
-Durée indicative totale : **environ 1 heure par groupe**.
+Durée indicative totale : **environ 45 minutes par groupe**.
 
 Cette durée se décompose de la manière suivante (à titre indicatif) :
 
 * **5 minutes de présentation** (maximum),
-* **20 à 25 minutes de démonstration technique**,
-* **25 à 30 minutes de questions / réponses** avec le jury.
+* **15 à 20 minutes de démonstration technique**,
+* **20 à 25 minutes de questions / réponses** avec le jury.
 
 Les durées peuvent légèrement varier selon les échanges, mais ce découpage constitue la référence.
 
@@ -52,7 +52,7 @@ La présentation doit être **claire, synthétique et maîtrisée**.
 
 ---
 
-### 2️⃣ Démonstration technique (≈ 20 à 25 minutes)
+### 2️⃣ Démonstration technique (≈ 15 à 20 minutes)
 
 Démonstration du projet en conditions réelles :
 
@@ -71,7 +71,7 @@ Elle peut être **orientée par le jury**, qui peut demander à voir :
 
 ---
 
-### 3️⃣ Questions / réponses (≈ 25 à 30 minutes)
+### 3️⃣ Questions / réponses (≈ 20 à 25 minutes)
 
 Le jury posera des questions afin d’évaluer :
 
